@@ -1,0 +1,14 @@
+for _, Killer in workspace.GameAssets.Teams.Killer:GetChildren() do
+    local highlight = Killer:FindFirstChildOfClass("Highlight")
+    if highlight then
+        highlight:Destroy()
+    end
+    local billboardGui = Killer:FindFirstChildOfClass("BillboardGui")
+    if billboardGui then
+        billboardGui:Destroy()
+    end
+    local surfaceGui = Killer:FindFirstChildOfClass("SurfaceGui")
+    if surfaceGui then
+        surfaceGui:Destroy()
+    end
+end
