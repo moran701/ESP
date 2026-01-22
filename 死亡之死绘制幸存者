@@ -1,0 +1,43 @@
+local ContentProvider = game:GetService("ContentProvider")
+ContentProvider:PreloadAsync({"rbxasset://fonts/GothamBold.ttf"})
+
+local function addmoranEffects(moran)
+    local h = Instance.new("Highlight")
+    h.FillColor = Color3.new(0, 1, 0)
+    h.FillTransparency = 0
+    h.Parent = moran
+
+    local billboardGui = Instance.new("BillboardGui")
+    local textLabel = Instance.new("TextLabel")
+    
+    billboardGui.Adornee = moran
+    billboardGui.Size = UDim2.new(0, 200, 0, 50)
+    billboardGui.StudsOffset = Vector3.new(0, 3, 0)
+    billboardGui.AlwaysOnTop = true
+    
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1
+    textLabel.Text = "幸存者"  
+    textLabel.TextColor3 = Color3.new(1, 1, 1)
+    textLabel.TextScaled = false
+    textLabel.TextSize = 8
+    textLabel.Font = Enum.Font.SourceSans
+    textLabel.Parent = billboardGui
+    
+    billboardGui.Parent = moran
+    
+    moran.AncestryChanged:Connect(function(_, parent)
+        if not parent then
+            h:Destroy()
+            billboardGui:Destroy()
+        end
+    end)
+end
+
+for _, moran in workspace.GameAssets.Teams.Survivor:GetChildren() do
+    addmoranEffects(moran)
+end
+
+workspace.GameAssets.Teams.Survivor.ChildAdded:Connect(function(moran)
+    addmoranEffects(moran)
+end)
